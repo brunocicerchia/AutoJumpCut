@@ -1,0 +1,20 @@
+# PyInstaller
+dist/
+build/
+*.spec
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+vwen/
+env/
+.env
+
+# Assets
+icon.ico
+make_icon.py
+
+# Editor
+.vscode/
+.idea/
