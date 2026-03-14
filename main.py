@@ -68,6 +68,8 @@ TRANSLATIONS = {
         "dlg_select": "Select a video",
         "dlg_vid_files": "Videos",
         "dlg_all_files": "All files",
+        "footer_dev": "Developed by Bruno Cicerchia",
+        "footer_open": "Open Source ❤",
     },
     "Español": {
         "title": "✂  AutoJumpCut",
@@ -107,6 +109,8 @@ TRANSLATIONS = {
         "dlg_select": "Seleccioná un video",
         "dlg_vid_files": "Videos",
         "dlg_all_files": "Todos los archivos",
+        "footer_dev": "Desarrollado por Bruno Cicerchia",
+        "footer_open": "Open Source ❤",
     },
     "한국어 (Korean)": {
         "title": "✂  AutoJumpCut",
@@ -146,6 +150,8 @@ TRANSLATIONS = {
         "dlg_select": "동영상 선택",
         "dlg_vid_files": "동영상",
         "dlg_all_files": "모든 파일",
+        "footer_dev": "개발자: Bruno Cicerchia",
+        "footer_open": "Open Source ❤",
     }
 }
 
@@ -165,8 +171,9 @@ class App(ctk.CTk):
 
     def __init__(self):
         super().__init__()
-        self.geometry("540x760")
-        self.resizable(False, False)
+        self.geometry("540x800")
+        self.minsize(540, 760)
+        self.resizable(True, True)
 
         # Cargar icono (funciona tanto en script como compilado)
         icon_path = Path("icon.ico")
@@ -274,6 +281,20 @@ class App(ctk.CTk):
         )
         self._cancel_btn.pack(pady=(8, 0))
 
+        # ── Footer ──────────────────────────────────────────────────────────
+        footer_frame = ctk.CTkFrame(self, fg_color="transparent")
+        footer_frame.pack(fill="x", side="bottom", pady=(0, 15))
+
+        self._footer_dev_lbl = ctk.CTkLabel(
+            footer_frame, font=ctk.CTkFont(size=10), text_color="#555577"
+        )
+        self._footer_dev_lbl.pack()
+
+        self._footer_open_lbl = ctk.CTkLabel(
+            footer_frame, font=ctk.CTkFont(size=10), text_color="#555577"
+        )
+        self._footer_open_lbl.pack()
+
         # ── Registro de actividad ──────────────────────────────────────────
         self._log_title_lbl = ctk.CTkLabel(self, font=ctk.CTkFont(size=11, weight="bold"), text_color="#666688")
         self._log_title_lbl.pack(padx=px, anchor="w", pady=(14, 0))
@@ -282,7 +303,7 @@ class App(ctk.CTk):
             self, height=120, font=ctk.CTkFont(family="Consolas", size=10),
             fg_color="#0d0d1a", text_color="#aaaacc", corner_radius=8, state="disabled", wrap="word"
         )
-        self._log_box.pack(padx=px, fill="x", pady=(4, 16))
+        self._log_box.pack(padx=px, fill="both", expand=True, pady=(4, 15))
 
     # ──────────────────────────────────────────────────────────────────────
     # Cambio de idioma
@@ -307,6 +328,9 @@ class App(ctk.CTk):
         self._run_btn.configure(text=t["btn_process"])
         self._cancel_btn.configure(text=t["btn_cancel"])
         self._log_title_lbl.configure(text=t["log_title"])
+        
+        self._footer_dev_lbl.configure(text=t["footer_dev"])
+        self._footer_open_lbl.configure(text=t["footer_open"])
 
         # Actualizar dropdowns construyendo los mapeos para este idioma
         new_sens = {
